@@ -10,10 +10,45 @@ import SwiftUI
 struct ContentView: View {
     
     @State var volume = 50.0
-    
+    @State var isActive = true
+
     
     var body: some View {
+        
         VStack {
+            
+//            HStack {
+//                Spacer()
+//                Toggle("Active", isOn: $showActive)
+//                    .toggleStyle(SwitchToggleStyle(tint: .purple))
+//                Spacer()
+//            }
+//
+            HStack {
+                if self.isActive
+                {
+                    Text("Active")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.blue)
+                }
+                else
+                {
+                    Text("Offline")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.red)
+                }
+                Spacer()
+                Toggle("", isOn: $isActive)
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(self.isActive ? Color.blue: Color.red, lineWidth: 2)
+            )
+
             Rectangle()
                 .foregroundColor(Color(UIColor.secondarySystemFill))
                 .cornerRadius(20)
@@ -80,7 +115,7 @@ struct ContentView: View {
             }
         }
         .padding()
-        .background(LinearGradient(gradient: Gradient(colors: [.black, .teal]), startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(gradient: Gradient(colors: [.white, .teal]), startPoint: .top, endPoint: .bottom))
     }
 }
 
